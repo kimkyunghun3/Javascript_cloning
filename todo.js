@@ -1,37 +1,57 @@
 const toDoForm =document.querySelector(".js-toDoForm"),
-    toDoInput = toDoForm.querySelector("input")
+    toDoInput = toDoForm.querySelector("input"),
     toDoList =document.querySelector(".js-toDoList");
 
 const TODOS_LS ="toDos";
-   
+
+const toDos =[];
+
+function saveToDos(){
+    localStorage.setItem(TODOS_LS,JSON.stringify(toDos));    
+}                               //json은 js의 obejct >string 으로 해줌
+
 function paintToDo(text){
     const li = document.createElement("li");
     const delBtn =document.createElement("button");
-    delBtn.innerText ="X";
     const span =document.createElement("span");
-    span.innerText =text
+    const newId =toDos.length+1; //d를 줘야 하나씩 지울 때 어떤거 할 지 알수 있기 떄문이다
+    delBtn.innerText = "❌";
+    span.innerText =text;
     li.appendChild(delBtn);
     li.appendChild(span);
+    li.id =newId;
     toDoList.appendChild(li);
+    const toDoObj ={
+        text: text,
+        id: newId
+    };
+    toDos.push(toDoObj);
+    saveToDos();
+    
 }
 
-function handleSubmit(event){
-    event.preventDefault();
-    const currentValue =toDoInput.value;
-    paintToDo(currentValue);
-    toDoInput.value="";
+
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const currentValue = toDoInput.value;
+  paintToDo(currentValue);
+  toDoInput.value = "";
+  console.log("handleSubmit");
 }
 
 function loadToDos(){
-    const toDos =localStorage.getItem(TODOS_LS);
-    if(toDos !== null){
-
+    const loadedToDos =localStorage.getItem(TODOS_LS);
+    if (loadedToDos !== null){
+    
     }
+    console.log("loadToDos");
 }
 
     function init(){
         loadToDos();
-        toDoForm.addEventListener("sumbit",handleSubmit)
+        toDoForm.addEventListener("submit",handleSubmit);
+    console.log("init");
     }
     
     init();

@@ -12,6 +12,7 @@ function saveName(text){
 function handleSubmit(event){
     event.preventDefault();
     const currentValue =input.value;
+    saveName(currentValue);
     paintGreeting(currentValue);   
 }
 
@@ -33,6 +34,9 @@ function loadName(){
     }else {
         paintGreeting(currentUser);
     }
+}
+function init(){
+    loadName();
 }
 
 init();
