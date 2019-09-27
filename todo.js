@@ -30,28 +30,28 @@ function paintToDo(text){
     
 }
 
-
-
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
   paintToDo(currentValue);
   toDoInput.value = "";
-  console.log("handleSubmit");
+  
 }
 
 function loadToDos(){
     const loadedToDos =localStorage.getItem(TODOS_LS);
     if (loadedToDos !== null){
-    
+        const parsedToDos=JSON.parse(loadedToDos);
+        parsedToDos.forEach(function(toDo){
+            paintToDo(toDo.text);
+        });
     }
-    console.log("loadToDos");
 }
 
     function init(){
         loadToDos();
         toDoForm.addEventListener("submit",handleSubmit);
-    console.log("init");
+    
     }
     
     init();
