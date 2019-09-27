@@ -6,6 +6,11 @@ const TODOS_LS ="toDos";
 
 const toDos =[];
 
+function deleteToDo(event){
+    console.log(event.target.parentNode);
+
+}
+
 function saveToDos(){
     localStorage.setItem(TODOS_LS,JSON.stringify(toDos));    
 }                               //json은 js의 obejct >string 으로 해줌
@@ -16,6 +21,7 @@ function paintToDo(text){
     const span =document.createElement("span");
     const newId =toDos.length+1; //d를 줘야 하나씩 지울 때 어떤거 할 지 알수 있기 떄문이다
     delBtn.innerText = "❌";
+    delBtn.addEventListener("click",deleteToDo);
     span.innerText =text;
     li.appendChild(delBtn);
     li.appendChild(span);
